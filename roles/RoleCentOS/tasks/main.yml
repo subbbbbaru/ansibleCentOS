@@ -1,0 +1,24 @@
+---
+# tasks file for RoleCentOS
+- name: "Update/Upgrade all packages"
+  become: true
+  become_method: sudo
+  ansible.builtin.yum:
+    name: "*"
+    state: latest
+    update_only: yes
+    update_cache: yes
+    exclude: nano*
+  when:
+   - ansible_os_family == "RedHat"
+   - ansible_distribution == "CentOS"
+  notify:
+    - restart server
+
+- name: "Delete old linux with installed yum-utils"
+  become: true
+  become_method: sudo
+  shell: "package-cleanup --oldkernels --count=2"
+  
+  
+

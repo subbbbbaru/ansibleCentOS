@@ -1,0 +1,4 @@
+- name: Test CentOS playbook
+  hosts: server_centos
+  roles:
+    - RoleCentOS
